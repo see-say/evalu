@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استمارة تقييم أداء المعلمة - مدرسة الابتكار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --secondary: #FF6B6B;
+            --accent: #FFD166;
+            --green-check: #06D6A0;
+            --red-cross: #EF476F;
+            --text-color: #2B2D42;
+            --bg-gradient: linear-gradient(135deg, #E0F7FA 0%, #FFF9C4 50%, #FCE4EC 100%);
+        }
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 950px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 4px solid #FFF;
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(120deg, #4834d4, #686de0);
+            color: white;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(104, 109, 224, 0.3);
+        }
+        .header h3 { margin: 4px 0; font-weight: 500; font-size: 1.1rem; opacity: 0.95; }
+        .header h1 {
+            margin: 15px 0 5px 0;
+            font-size: 1.9rem;
+            background: #FFD166;
+            color: #2C3E50;
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .section-card {
+            background: #F8F9FA;
+            border-radius: 16px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            border-right: 6px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .section-title {
+            font-size: 1.3rem;
+            color: #2C3E50;
+            margin-bottom: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        .info-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+        .info-input {
+            flex-grow: 1;
+            border: 2px dashed #CBD5E1;
+            border-radius: 8px;
+            padding: 6px 12px;
+            background: white;
+            outline: none;
+            font-size: 1rem;
+        }
+        .instructions-box {
+            background: #FFF9E6;
+            border: 2px solid #FFE082;
+            border-radius: 16px;
+            padding: 18px 25px;
+            margin-bottom: 30px;
+        }
+        .symbol-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: white;
+        }
+        .symbol-check { background-color: var(--green-check); }
+        .symbol-cross { background-color: var(--red-cross); }
+        
+        .domain-block {
+            background: white;
+            border-radius: 18px;
+            border: 2px solid #E2E8F0;
+            margin-bottom: 30px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+        }
+        .domain-header {
+            background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 12px 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #EDF2F7;
+        }
+        th {
+            background-color: #F7FAFC;
+            color: #4A5568;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .num-col { width: 6%; }
+        .domain-col { width: 15%; font-weight: bold; color: #4834d4; }
+        .indicator-col { text-align: right; width: 43%; font-weight: 500; padding-right: 15px; }
+        .chk-col { width: 10%; }
+        .note-col { width: 16%; }
+        
+        .note-input {
+            width: 100%;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            padding: 6px 10px;
+            outline: none;
+            background: #FAFAFA;
+            font-size: 0.9rem;
+        }
+        input[type="checkbox"] {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #CBD5E1;
+            border-radius: 6px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .chk-green:checked {
+            background-color: var(--green-check);
+            border-color: var(--green-check);
+        }
+        .chk-green:checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+        .chk-red:checked {
+            background-color: var(--red-cross);
+            border-color: var(--red-cross);
+        }
+        .chk-red:checked::after {
+            content: '✗';
+            color: white;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+        }
+        .approval-card {
+            background: #F0F9FF;
+            border: 2px solid #BAE6FD;
+            border-radius: 18px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            z-index: 1000;
+        }
+        @media print {
+            body { background: none; padding: 0; }
+            .container { box-shadow: none; border: none; padding: 0; width: 100%; max-width: 100%; }
+            .print-btn { display: none; }
+            .domain-block { break-inside: avoid; }
+            .info-input, .note-input { border: none; border-bottom: 1px solid #000; border-radius: 0; background: transparent; }
+            input[type="checkbox"] { border: 1px solid #000; }
+        }
+    </style>
+</head>
+<body>
+<button class="print-btn" onclick="window.print()">🖨️ طباعة الاستمارة (PDF)</button>
+<div class="container">
+    <div class="header">
+        <h3>سلطنة عُمان</h3>
+        <h3>وزارة التربية والتعليم</h3>
+        <h3>المديرية العامة للتعليم بمحافظة شمال الباطنة</h3>
+        <h3>مدرسة الابتكار لصفوف (1 - 4)</h3>
+        <h1>استمارة تقييم أداء المعلمة</h1>
+    </div>
+    
+    <div class="section-card">
+        <div class="section-title">📌 بيانات المعلمة والتاريخ</div>
+        <div class="info-grid">
+            <div class="info-field">
+                <label>اسم المعلمة:</label>
+                <input type="text" class="info-input" placeholder="أدخل اسم المعلمة الثلاثي...">
+            </div>
+            <div class="info-field">
+                <label>التاريخ:</label>
+                <input type="text" class="info-input" placeholder="أدخل التاريخ...">
+            </div>
+        </div>
+    </div>
+
+    <div class="instructions-box">
+        <div class="section-title" style="margin-bottom: 8px;">💡 تعليمات التقييم</div>
+        <p style="margin: 5px 0 10px 0;">يتم تقييم كل مؤشر من خلال وضع علامة واحدة فقط في الخانة المناسبة:</p>
+        <div style="display: flex; gap: 20px; font-weight: 600; margin-bottom: 5px;">
+            <div><span class="symbol-badge symbol-check">✓</span> يدل على تحقق المؤشر.</div>
+            <div><span class="symbol-badge symbol-cross">✗</span> يدل على عدم تحقق المؤشر.</div>
+        </div>
+    </div>
+
+    <div class="domain-block">
+        <div class="domain-header">جدول تقييم المؤشرات المهنية</div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="num-col">م</th>
+                    <th class="domain-col">المجال</th>
+                    <th class="indicator-col">المؤشر</th>
+                    <th class="chk-col">تحقق (✓)</th>
+                    <th class="chk-col">لم يتحقق (✗)</th>
+                    <th class="note-col">الملاحظات / الأدلة والشواهد</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>الانضباط</td>
+                    <td class="indicator-col">يلتزم بالحضور في الوقت المحدد وحضور الطابور الصباحي</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>الانضباط</td>
+                    <td class="indicator-col">لا يتغيب إلا بعذر مقبول مع إبلاغ الإدارة عند الاضطرار</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>الانضباط</td>
+                    <td class="indicator-col">يلتزم بمواعيد الحصص والمناوبات والأنظمة والتعليمات المدرسية</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>التعاون</td>
+                    <td class="indicator-col">يتعاون مع زملائه والإدارة بصورة إيجابية ويشارك في اللجان والفعاليات</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>التعاون</td>
+                    <td class="indicator-col">يتبادل الخبرات والموارد ويقدم الدعم والمساعدة للزملاء</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>الإنجاز وسرعة الإنجاز</td>
+                    <td class="indicator-col">ينجز الأعمال والتكليفات المطلوبة في الوقت المحدد بدقة وجودة</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>الإنجاز وسرعة الإنجاز</td>
+                    <td class="indicator-col">يرتب أولويات العمل بكفاءة ويتعامل بسرعة مع المتطلبات الطارئة</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>الإنجاز وسرعة الإنجاز</td>
+                    <td class="indicator-col">يحقق الأهداف المرجوة ويوثق إنجازاته ويظهر أثرها على الطلبة والمدرسة</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>الابتكار</td>
+                    <td class="indicator-col">يقدم أفكارًا جديدة، أساليب تعليمية مبتكرة، ويوظف التقنية بفعالية</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>المبادرة</td>
+                    <td class="indicator-col">يبادر إلى تنفيذ الأعمال وحل المشكلات دون انتظار التوجيه المستمر</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>الشفافية</td>
+                    <td class="indicator-col">يتعامل بصدق ووضوح وموضوعية، ويتقبل الملاحظات بإيجابية</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>المبادرات المهنية</td>
+                    <td class="indicator-col">يشارك بفاعلية في المبادرات المدرسية والتعليمية ويقيس أثرها</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>الإنماء المهني</td>
+                    <td class="indicator-col">يلتزم بحضور برامج الإنماء المهني ويطبق ما تعلمه وينقله لزملائه</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>المبادئ المهنية</td>
+                    <td class="indicator-col">يلتزم بأخلاقيات مهنة التعليم ويراعي حقوق الطلبة والفروق الفردية</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>المبادئ المهنية</td>
+                    <td class="indicator-col">يحافظ على سرية المعلومات والمظهر والسلوك المهني المناسب</td>
+                    <td><input type="checkbox" class="chk-green"></td>
+                    <td><input type="checkbox" class="chk-red"></td>
+                    <td><input type="text" class="note-input" placeholder="اكتب..."></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Approval Section -->
+    <div class="approval-card">
+        <div class="section-title">✍️ اعتماد التقييم</div>
+        <p style="margin-bottom: 20px;">تمت عملية التقييم بالاستناد إلى المؤشرات والأدلة والشواهد المتاحة خلال فترة التقييم.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-weight: bold;">
+            <div>توقيع المعلمة: .......................................</div>
+            <div>توقيع المقيّم / الإدارة: .......................................</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
